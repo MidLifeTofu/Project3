@@ -25,21 +25,27 @@ app.get('/schedules', (req, res) => {
 
 
 // Step 3
-app.get('/users/:id', (req,res) => {
+app.get('/users/:id', (req, res) => {
     const id = req.params.id
-    let user = []
+    /* let user = [] */
+        /* console.log(id) */
+        res.send(data.users[id])
 
-// go through the users, if the input (/:id) matches the [i] of a user, display their details.
-    for (let i = 0; i < data.users.length; i++) {
 
-        if (data.users[i] === id) {      //something is happening these lines to stop it
-            console.log(data.users[i])     //from bringing up information found in loop
-        }
+// go through the users, if the input (/:id) matches the [i(ndex)] of a user, display their details.
+// do you need to use a loop? Not searching each object for something
+
+/*     for (let i = 0; i < data.users.length; i++) { //need to define i???
+        console.log(i)      // this is counting the number of users
+
+        let userId = data.users[i]
+        if (userId === id)
+            user.push(userId)
+            console.log(user)
     }
 
     console.log(user)               //these lines are only logging [] because info
-    res.send(user)                  //from if statement is not logging.
-
+    res.send(user)    */             //from if statement is not logging???
 })
 
 
