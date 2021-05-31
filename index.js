@@ -70,14 +70,6 @@ app.post('/schedules', (req, res) => {
     res.send(req.body)
 })
 
-app.post('/users', (req, res) => {
-    const plainTextPassword = req.body.password
-        console.log(plainTextPassword)
-    bcrypt.hash(plainTextPassword, saltRounds, (eer, hash) => {
-        res.send('Testing')
-    })
-})
-
 
 
 app.listen(port, () => {
