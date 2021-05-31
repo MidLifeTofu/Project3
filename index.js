@@ -5,6 +5,7 @@ const port = 3000
 //accesses the information in the data.js file
 const data = require('./data.js')
 
+
 //body passer
 app.use(express.json()) 
 app.use(express.urlencoded({extended: true}))
@@ -68,8 +69,35 @@ app.get('/users/:id/schedules', (req, res) => { //change id param to only digits
 app.post('/schedules', (req, res) => {
     data.schedules.push(req.body) //push the respond part into the array
     res.send(req.body)
+    // need to make curl request to add: curl -d "user_id=1&day=3&start_at=9AM&end_at=3PM" -X POST localhost:3000/schedules"
 })
 
+
+
+app.post('/users', (req, res) => {
+
+    const bcrypt = require('bcrypt')
+    const saltRounds = 10
+    const plainTextPassword = req.body.password
+    
+        data.users.push(req.body) //need to change the req.body to show the password as the hashed password
+        
+        bcrypt.hash(plainTextPassword, saltRounds, (eer, hash) => {
+        res.send('Password has been hashed')
+            console.log(hash)
+        
+    })
+})
+
+/* 
+app.post('/users', (req, res) => {
+    const bcrypt = require('bcrypt')
+    const salt = 10
+    const data = req.body.password
+
+        data.users.push(req.body)
+        bcrypt.hash(data, salt, req.body)       //hash(data, salt, callback)???
+}) */
 
 
 app.listen(port, () => {
