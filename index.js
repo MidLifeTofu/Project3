@@ -10,43 +10,44 @@ const data = require('./data.js')
 app.use(express.json()) 
 app.use(express.urlencoded({extended: true}))
 
+app.set('view engine', 'ejs')
 
-// Step 2
+app.use('../..', express.static('/public'))
+
+// Step 2 - show current data available for all users or schedules.
+
 app.get('/', (req, res) => {
-    res.send('Welcome to our schedule website')
+    //res.send('Welcome to our schedule website')
+
+    res.render('index', {
+        documentTitle: "Schedule Website",
+        name: "Jay Porter",
+        day: "Wednesday",
+        users: data.users,
+        //usersLength: data.users.length,
+        firstname: data.users[0].firstname,
+        lastname: data.users[0].lastname,
+        email: data.users[0].email,
+
+
+    })
 })
 
-app.get('/users', (req, res) => {
+/* app.get('/users', (req, res) => {
     console.log(data.users)
 })
 
 app.get('/schedules', (req, res) => {
     console.log(data.schedules)
-})
+}) */
 
 
-// Step 3
+// Step 3 - show data for specific user
 app.get('/users/:id', (req, res) => {
     const id = req.params.id
     /* let user = [] */
         /* console.log(id) */
         res.send(data.users[id])
-
-
-// go through the users, if the input (/:id) matches the [i(ndex)] of a user, display their details.
-// do you need to use a loop? Not searching each object for something
-
-/*     for (let i = 0; i < data.users.length; i++) { //need to define i???
-        console.log(i)      // this is counting the number of users
-
-        let userId = data.users[i]
-        if (userId === id)
-            user.push(userId)
-            console.log(user)
-    }
-
-    console.log(user)               //these lines are only logging [] because info
-    res.send(user)    */             //from if statement is not logging???
 })
 
 
@@ -65,7 +66,7 @@ app.get('/users/:id/schedules', (req, res) => { //change id param to only digits
 })
 
 
-// Step 4
+// Step 4 - add in new user or schedule 
 app.post('/schedules', (req, res) => {
     data.schedules.push(req.body) //push the respond part into the array
     res.send(req.body)
@@ -83,7 +84,10 @@ app.post('/users', (req, res) => {
         data.users.push(req.body) //need to change the req.body to show the password as the hashed password
         
         bcrypt.hash(plainTextPassword, saltRounds, (eer, hash) => {
-        res.send('Password has been hashed')
+        
+            
+        
+            res.send('Password has been hashed')
             console.log(hash)
         
     })
@@ -98,6 +102,7 @@ app.post('/users', (req, res) => {
         data.users.push(req.body)
         bcrypt.hash(data, salt, req.body)       //hash(data, salt, callback)???
 }) */
+
 
 
 app.listen(port, () => {
