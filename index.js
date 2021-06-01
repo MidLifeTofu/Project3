@@ -33,13 +33,13 @@ app.get('/', (req, res) => {
     })
 })
 
-/* app.get('/users', (req, res) => {
+app.get('/users', (req, res) => {
     console.log(data.users)
 })
 
 app.get('/schedules', (req, res) => {
     console.log(data.schedules)
-}) */
+})
 
 
 // Step 3 - show data for specific user
@@ -80,18 +80,19 @@ app.post('/users', (req, res) => {
     const bcrypt = require('bcrypt')
     const saltRounds = 10
     const plainTextPassword = req.body.password
-    
-        data.users.push(req.body) //need to change the req.body to show the password as the hashed password
         
         bcrypt.hash(plainTextPassword, saltRounds, (eer, hash) => {
-        
-            
-        
+              
             res.send('Password has been hashed')
             console.log(hash)
+
+            const user = req.body
+            user['password'] = hash //changes the pasword section of the req.body to the hash
+            data.users.push(req.body) //pushes the data with the new password as hash into the users data
         
     })
-})
+
+    })
 
 /* 
 app.post('/users', (req, res) => {
