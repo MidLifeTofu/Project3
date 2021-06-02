@@ -10,16 +10,24 @@ const data = require('./data.js')
 app.use(express.json()) 
 app.use(express.urlencoded({extended: true}))
 
+//sets the template to ejs
 app.set('view engine', 'ejs')
 
-app.use('../..', express.static('/public'))
+// sets the public folder to be the start path of public view files
+app.use(express.static('public'))
 
-// Step 2 - show current data available for all users or schedules.
 
+// HOMEPAGE
 app.get('/', (req, res) => {
-    //res.send('Welcome to our schedule website')
+    res.render('index', { //tells you what ejs page to render
+    documentTitle: "Schedule Website",
+    })
+})
 
-    res.render('index', {
+
+// USERS PAGE
+app.get('/users', (req, res) => {
+    res.render('users', {
         documentTitle: "Schedule Website",
         name: "Jay Porter",
         day: "Wednesday",
@@ -28,30 +36,22 @@ app.get('/', (req, res) => {
         firstname: data.users[0].firstname,
         lastname: data.users[0].lastname,
         email: data.users[0].email,
-
-
     })
 })
 
-app.get('/users', (req, res) => {
-    console.log(data.users)
-})
-
+// SCHEDULES PAGE
 app.get('/schedules', (req, res) => {
-    console.log(data.schedules)
 })
 
 
 // Step 3 - show data for specific user
 app.get('/users/:id', (req, res) => {
     const id = req.params.id
-    /* let user = [] */
-        /* console.log(id) */
         res.send(data.users[id])
 })
 
 
-app.get('/users/:id/schedules', (req, res) => { //change id param to only digits - tdl
+app.get('/users/:id/schedules', (req, res) => { 
     const id = Number(req.params.id)
     let schedules = []
 

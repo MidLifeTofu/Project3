@@ -1,8 +1,4 @@
-header {
-    background-color: red;
-    margin: 10% 20%;
-}
-
-#tester {
-    color: green
+h1 {
+    background-color: #6a7b8b;
+    color: white;
 }
