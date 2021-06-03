@@ -67,14 +67,12 @@ app.post('/schedules/new', (req, res) => {
 // USER SPECIFIC (USER INFORMATION) PAGE
 app.get('/users/:id', (req, res) => {
     const id = req.params.id
-        console.log(id)
-    
-
+        //console.log(id)
         //res.send(data.users[id])
 
       res.render('usersid', {
         //usersLength: data.users.length,
-        users: data.users,
+        //users: data.users,
         firstname: data.users[id].firstname,
         lastname: data.users[id].lastname,
         email: data.users[id].email,
@@ -94,8 +92,19 @@ app.get('/users/:id/schedules', (req, res) => {
             schedules.push(currentSchedule)
         }
     }
-    console.log(schedules)
-    res.send(schedules)
+    /* console.log(schedules)
+    res.send(schedules) */
+
+    res.render('userschedule', {
+            // make a const to convert day numbers into day names?
+        user_idFirst: data.users[id].firstname, 
+        user_idLast: data.users[id].lastname,
+        day: data.schedules[id].day,
+        start_at: data.schedules[id].start_at,
+        end_at:  data.schedules[id].end_at,
+        //also need to show if there is more than one shift pesent. use a loop?
+
+    })
 })
 
 
