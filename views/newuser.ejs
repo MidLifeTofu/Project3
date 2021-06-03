@@ -1,0 +1,19 @@
+<%- include('includes/header.ejs') -%>
+
+<h2>New User Sign Up</h2>
+
+<form method='POST' action='/users/new'>
+    <p class='formtitle'>First Name:</p>
+        <input name='firstname' type='text' id='firstname'>
+    <p class='formtitle'>Last Name:</p>
+        <input name='lastname' type='text' id='lastname'>
+    <p class='formtitle'>Email:</p>
+        <input name='email' type='email' id='email'>
+    <p class='formtitle'>Password:</p>
+        <input name='password' type='password' id='password'>
+    <p>
+        <button type="submit">Submit</button>
+    </p>
+</form>
+
+<%- include('includes/footer.ejs') -%>

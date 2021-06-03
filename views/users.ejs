@@ -1,14 +1,15 @@
 <%- include('includes/header.ejs') -%>
 
-<h2>Hello <%=name %></h2>
-<p>How is your <%=day %> going?</p>
+<h2>Enter your User ID:</h2>
+<form method='req' action='/users/:id'>
+    <input name='user_id' type='number' id='user_id'>
+    <button type="submit">Submit</button>
+</form>
 
-<h2>Here is the first user information:</h2>
-<% for (let i = 0; i < users.length; i++) { %>
-<p><strong>First Name:</strong> <%=users[i].firstname%></p>
-<p><strong>Last Name:</strong> <%=users[i].lastname%></p>
-<p><strong>Email:</strong> <%=users[i].email%></p>
-<% } %>
+<p>or create a new user:</p>
+<button onclick="document.location='/users/new'">New User</button>
+
+
 
 <%- include('includes/footer.ejs') -%>
 

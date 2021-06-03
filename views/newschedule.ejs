@@ -1,0 +1,32 @@
+<%- include('includes/header.ejs') -%>
+
+<h2>New Schedule</h2>
+
+<form method='POST' action='/schedules/new'>
+    <p class='formtitle'>User ID:</p>
+    <select name='user_id' id='user_id'>
+        <option value='0'>James Bond</option>
+        <option value='1'>Tony Stark</option>
+        <option value='2'>Ali G</option>
+<!--is it possible using ejs tags to make the value = user id index and the presented name as firstname of that index so that it will auto compile all users in the array as a seperate option with their correct values?-->
+    </select>
+    <p class='formtitle'>Day:</p>
+        <select name='day' id='day'>
+            <option value='1'>Monday</option>
+            <option value='2'>Tuesday</option>
+            <option value='3'>Wednesday</option>
+            <option value='4'>Thursday</option>
+            <option value='5'>Friday</option>
+            <option value='6'>Saturday</option>
+            <option value='7'>Sunday</option>
+        </select>
+    <p class='formtitle'>Start Time:</p>
+        <input name='start_at' type='time' id='start_at'>
+    <p class='formtitle'>End Time:</p>
+    <input name='end_at' type='time' id='end_at'>
+    <p>
+        <button type="submit">Submit</button>
+    </p>
+</form>
+
+<%- include('includes/footer.ejs') -%>

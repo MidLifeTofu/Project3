@@ -1,10 +1,7 @@
-// Step 1
 const express = require('express')
 const app = express()
 const port = 3000
-//accesses the information in the data.js file
-const data = require('./data.js')
-
+const data = require('./data.js') //accesses the information in the data.js file
 
 //body passer
 app.use(express.json()) 
@@ -17,40 +14,76 @@ app.set('view engine', 'ejs')
 app.use(express.static('public'))
 
 
+
 // HOMEPAGE
 app.get('/', (req, res) => {
-    res.render('index', { //tells you what ejs page to render
-    documentTitle: "Schedule Website",
+    res.render('index', { //tells you what ejs file to render
     })
 })
+
 
 
 // USERS PAGE
 app.get('/users', (req, res) => {
     res.render('users', {
-        documentTitle: "Schedule Website",
-        name: "Jay Porter",
-        day: "Wednesday",
-        users: data.users,
-        //usersLength: data.users.length,
-        firstname: data.users[0].firstname,
-        lastname: data.users[0].lastname,
-        email: data.users[0].email,
+/*         const id =            for sending people to specific ID page
+        res.redirect(`/users/${id}`) */
     })
 })
+
+
+
+// FRONT END ADD NEW USER
+app.get('/users/new', (req, res) => {
+    res.render('newuser')
+})
+
+app.post('/users/new', (req, res) => {
+    data.users.push(req.body)
+        const id = data.users.length -1
+    res.redirect(`/users/${id}`)
+})
+
+
 
 // SCHEDULES PAGE
 app.get('/schedules', (req, res) => {
 })
 
 
-// Step 3 - show data for specific user
+
+// FRONT END ADD NEW SCHEDULE
+app.get('/schedules/new', (req, res) => {
+    res.render('newschedule')
+})
+
+app.post('/schedules/new', (req, res) => {
+    data.schedules.push(req.body)
+        //const id = document.getElementById('user_id') //how to reference the newschedule.ejs document to get the user_id for the redirection.
+        //res.redirect(`/users/${id}/schedules`)
+        res.redirect('/users')
+})
+
+// USER SPECIFIC (USER INFORMATION) PAGE
 app.get('/users/:id', (req, res) => {
     const id = req.params.id
-        res.send(data.users[id])
+        console.log(id)
+    
+
+        //res.send(data.users[id])
+
+      res.render('usersid', {
+        //usersLength: data.users.length,
+        users: data.users,
+        firstname: data.users[id].firstname,
+        lastname: data.users[id].lastname,
+        email: data.users[id].email,
+    }) 
 })
 
 
+
+// USER SPECIFIC (SCHEDULE) PAGE
 app.get('/users/:id/schedules', (req, res) => { 
     const id = Number(req.params.id)
     let schedules = []
@@ -66,7 +99,8 @@ app.get('/users/:id/schedules', (req, res) => {
 })
 
 
-// Step 4 - add in new user or schedule 
+
+// BACKEND ADD NEW SCHEDULE 
 app.post('/schedules', (req, res) => {
     data.schedules.push(req.body) //push the respond part into the array
     res.send(req.body)
@@ -75,6 +109,7 @@ app.post('/schedules', (req, res) => {
 
 
 
+// BACKEND ADD NEW USER
 app.post('/users', (req, res) => {
 
     const bcrypt = require('bcrypt')
@@ -89,24 +124,13 @@ app.post('/users', (req, res) => {
             const user = req.body
             user['password'] = hash //changes the pasword section of the req.body to the hash
             data.users.push(req.body) //pushes the data with the new password as hash into the users data
-        
     })
+})
 
-    })
 
-/* 
-app.post('/users', (req, res) => {
-    const bcrypt = require('bcrypt')
-    const salt = 10
-    const data = req.body.password
-
-        data.users.push(req.body)
-        bcrypt.hash(data, salt, req.body)       //hash(data, salt, callback)???
-}) */
 
 
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
-
 })
