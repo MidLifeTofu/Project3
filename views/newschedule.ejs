@@ -5,9 +5,20 @@
 <form method='POST' action='/schedules/new'>
     <p class='formtitle'>User ID:</p>
     <select name='user_id' id='user_id'>
-        <option value='0'>James Bond</option>
+<!--         <option value='0'>James Bond</option>
         <option value='1'>Tony Stark</option>
-        <option value='2'>Ali G</option>
+        <option value='2'>Ali G</option> -->
+
+
+<% for (i = 0; i < users.length; i++) { %>
+    <% let userId = i %>
+    <% let userName = users[i].firstname %>
+    <% let userLast = users[i].lastname %>
+    <option vaule='<%= userId %>'><%= userName %> <%= userLast %></option>
+<% } %>
+        
+
+
 <!--is it possible using ejs tags to make the value = user id index and the presented name as firstname of that index so that it will auto compile all users in the array as a seperate option with their correct values?-->
     </select>
     <p class='formtitle'>Day:</p>

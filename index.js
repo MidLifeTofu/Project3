@@ -3,7 +3,7 @@ const app = express()
 const port = 3000
 const data = require('./data.js') //accesses the information in the data.js file
 
-//body passer
+//body parser for post requests
 app.use(express.json()) 
 app.use(express.urlencoded({extended: true}))
 
@@ -26,8 +26,10 @@ app.get('/', (req, res) => {
 // USERS PAGE
 app.get('/users', (req, res) => {
     res.render('users', {
-/*         const id =            for sending people to specific ID page
-        res.redirect(`/users/${id}`) */
+
+         /* const inputId = userid(req.body)
+         console.log(inputId) */
+        //res.redirect(`/users/${id}`)
     })
 })
 
@@ -54,14 +56,26 @@ app.get('/schedules', (req, res) => {
 
 // FRONT END ADD NEW SCHEDULE
 app.get('/schedules/new', (req, res) => {
-    res.render('newschedule')
+    
+    res.render('newschedule', {
+        users: data.users
+    })
 })
 
 app.post('/schedules/new', (req, res) => {
-    data.schedules.push(req.body)
+    const user = {
+        user_id: Number(req.body.user_id),
+        day: Number(req.body.day),
+        start_at: req.body.start_at,
+        end_at: req.body.end_at
+    }
+    data.schedules.push(user)
+    console.log(data.schedules)
+    
+    const id = req.body.user_id
         //const id = document.getElementById('user_id') //how to reference the newschedule.ejs document to get the user_id for the redirection.
-        //res.redirect(`/users/${id}/schedules`)
-        res.redirect('/users')
+        res.redirect(`/users/${id}/schedules`)
+        //res.redirect('/users')
 })
 
 // USER SPECIFIC (USER INFORMATION) PAGE
@@ -85,6 +99,7 @@ app.get('/users/:id', (req, res) => {
 app.get('/users/:id/schedules', (req, res) => { 
     const id = Number(req.params.id)
     let schedules = []
+        console.log(id)
 
     for (let i = 0; i < data.schedules.length; i++) {
         let currentSchedule = data.schedules[i]
@@ -96,6 +111,7 @@ app.get('/users/:id/schedules', (req, res) => {
     res.send(schedules) */
 
     res.render('userschedule', {
+        schedules: schedules,
             // make a const to convert day numbers into day names?
         user_idFirst: data.users[id].firstname, 
         user_idLast: data.users[id].lastname,

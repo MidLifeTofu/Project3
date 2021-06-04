@@ -1,9 +1,11 @@
 <%- include('includes/header.ejs') -%>
 
 <p><strong>Name:</strong> <%= user_idFirst %> <%= user_idLast %></p>
-<%= if (i = 0; i < data.schedules.length; i++) %>
-<p><strong>Day:</strong> <%= data.schedules[i].day %></p>
-<p><strong>Start Time:</strong> <%= data.schedules[i].start_at %></p>
-<p><strong>End Time:</strong> <%= data.schedules[i].end_at %></p>
+<% for (let i = 0; i < schedules.length; i++) { %>
+<p><strong>Day:</strong> <%= schedules[i].day %></p>
+<p><strong>Start Time:</strong> <%= schedules[i].start_at %></p>
+<p><strong>End Time:</strong> <%= schedules[i].end_at %></p>
+
+<% } %>
 
 <%- include('includes/footer.ejs') -%>
