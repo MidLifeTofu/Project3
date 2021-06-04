@@ -26,11 +26,8 @@ app.get('/', (req, res) => {
 // USERS PAGE
 app.get('/users', (req, res) => {
     res.render('users', {
-
-         /* const inputId = userid(req.body)
-         console.log(inputId) */
-        //res.redirect(`/users/${id}`)
-    })
+            users: data.users,
+        })
 })
 
 
@@ -50,6 +47,9 @@ app.post('/users/new', (req, res) => {
 
 // SCHEDULES PAGE
 app.get('/schedules', (req, res) => {
+    res.render('schedules', {
+        schedules: data.schedules,
+    })
 })
 
 

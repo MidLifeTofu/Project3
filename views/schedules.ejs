@@ -1,0 +1,13 @@
+<%- include('includes/header.ejs') -%>
+
+<h2>Users:</h2>
+
+<% for (let i = 0; i < schedules.length; i++) { %>
+<p><strong>User ID:</strong><%= schedules[i].user_id %></p>
+<p><strong>Day:</strong><%= schedules[i].day %></p>
+<p><strong>Start At:</strong><%= schedules[i].start_at %></p>
+<p><strong>End At:</strong><%= schedules[i].end_at %></p>
+<% } %>
+
+<%- include('includes/footer.ejs') -%>
+
