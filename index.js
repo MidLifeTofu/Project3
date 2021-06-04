@@ -1,7 +1,11 @@
 const express = require('express')
 const app = express()
-const port = 3000
+//set port to 3000 unless there is an environmental variable for PORT
+const PORT = process.env.PORT || 3000
 const data = require('./data.js') //accesses the information in the data.js file
+
+//postgres setup
+const db = require('./database')
 
 //body parser for post requests
 app.use(express.json()) 
