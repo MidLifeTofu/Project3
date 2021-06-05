@@ -21,8 +21,18 @@ app.use(express.static('public'))
 
 // HOMEPAGE
 app.get('/', (req, res) => {
-    res.render('index', { //tells you what ejs file to render
+    db.any('SELECT * FROM schedules;')
+    .then((schedules) => {
+        console.log(schedules)
+        res.render('index', { //tells you what ejs file to render
+            name: 'Jay',
+            day: 'Friday',
+            schedules: schedules
+        })
     })
+    .catch((err) => {
+        res.send(err)
+    })   
 })
 
 
@@ -160,6 +170,6 @@ app.post('/users', (req, res) => {
 
 
 
-app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+app.listen(PORT, () => {
+    console.log(`Example app listening at http://localhost:${PORT}`)
 })
