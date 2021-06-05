@@ -4,6 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "create-database": "psql -U postgres -h localhost -d mrCoffee -f sql/create_database.sql",
+    "create-table": "psql -U postgres -h localhost -d mrCoffee -f sql/create_schedules.sql",
+    "seed-table": "psql -U postgres -h localhost -d mrCoffee -f sql/seed_schedules.sql",
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
