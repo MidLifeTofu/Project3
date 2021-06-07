@@ -1,0 +1,19 @@
+<%- include('includes/header.ejs') -%>
+
+<h2>New Schedule</h2>
+
+<form method='POST' action='/schedules/new'>
+    <p class='formtitle'>User ID:</p>
+        <input name='user_id' type='text' id='user_id'>
+    <p class='formtitle'>Day:</p>
+        <input name='day' type='number' id='day'>
+    <p class='formtitle'>Start Time:</p>
+        <input name='start_at' type='time' id='start_at'>
+    <p class='formtitle'>End Time:</p>
+        <input name='end_at' type='time' id='end_at'>
+    <p>
+        <button type="submit">Submit</button>
+    </p>
+</form>
+
+<%- include('includes/footer.ejs') -%>

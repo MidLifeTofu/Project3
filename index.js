@@ -48,7 +48,7 @@ app.get('/users', (req, res) => {
 
 // FRONT END ADD NEW USER
 app.get('/users/new', (req, res) => {
-    res.render('newuser')
+    res.render('newUser')
 })
 
 app.post('/users/new', (req, res) => {
@@ -71,7 +71,7 @@ app.get('/schedules', (req, res) => {
 // FRONT END ADD NEW SCHEDULE
 app.get('/schedules/new', (req, res) => {
     
-    res.render('newschedule', {
+    res.render('newSchedule', {
         users: data.users
     })
 })
@@ -98,7 +98,7 @@ app.get('/users/:id', (req, res) => {
         //console.log(id)
         //res.send(data.users[id])
 
-      res.render('usersid', {
+      res.render('usersId', {
         //usersLength: data.users.length,
         //users: data.users,
         firstname: data.users[id].firstname,
@@ -124,7 +124,7 @@ app.get('/users/:id/schedules', (req, res) => {
     /* console.log(schedules)
     res.send(schedules) */
 
-    res.render('userschedule', {
+    res.render('userSchedule', {
         schedules: schedules,
             // make a const to convert day numbers into day names?
         user_idFirst: data.users[id].firstname, 
@@ -166,8 +166,16 @@ app.post('/users', (req, res) => {
     })
 })
 
+// new schedule form to add to databse
+app.get('/new', (req, res) => {
+    res.render('new')
 
+})
 
+// view the database information
+app.get('/new/schedules', (req, res) => {
+    res.render('databaseSchedules')
+})
 
 
 app.listen(PORT, () => {
